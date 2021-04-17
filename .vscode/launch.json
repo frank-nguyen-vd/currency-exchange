@@ -8,6 +8,13 @@
             "cwd": "${workspaceFolder}/api/",
             "runtimeExecutable": "npm",
             "runtimeArgs": ["run-script", "debug"]
+        },
+        {
+            "name": "front-end",
+            "type": "chrome",
+            "request": "launch",
+            "url": "https://localhost:5000",
+            "webRoot": "${workspaceFolder}"
         }
     ]
 }
