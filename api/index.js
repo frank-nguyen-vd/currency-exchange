@@ -11,14 +11,13 @@ const corsOptions = {
     optionsSuccessStatus: 200
 };
 
-const endpoint = "latest";
 const api_key = process.env.API_KEY;
 const url = "https://api.currencyscoop.com/v1/";
 
 app.get("/rates", cors(corsOptions), (req, res) => {
-    base = req.query.base;
+    const base = req.query.base;
     https.get(
-        url + endpoint + "?api_key=" + api_key + "&base=" + base,
+        url + "latest" + "?api_key=" + api_key + "&base=" + base,
         (resData) => {
             let data = "";
             resData.on("data", (chunk) => {
@@ -32,4 +31,26 @@ app.get("/rates", cors(corsOptions), (req, res) => {
         }
     );
 });
+
+app.get("/currencies", cors(corsOptions), (req, res) => {
+    https.get(
+        url + "currencies" + "?api_key=" + api_key + "&type=fiat",
+        (resData) => {
+            let data = "";
+            resData.on("data", (chunk) => {
+                data += chunk;
+            });
+
+            resData.on("end", () => {
+                var jsonData = JSON.parse(data).response;
+                res.send(jsonData.fiats);
+            });
+        }
+    );
+});
+
+app.get("/", cors(corsOptions), (req, res) => {
+    res.send("Welcome to Express");
+});
+
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
