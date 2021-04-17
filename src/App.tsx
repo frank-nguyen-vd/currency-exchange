@@ -1,20 +1,29 @@
 import React, { useState } from "react";
 import "./App.css";
 
-function Button() {
-    const [counter, setCounter] = useState(0);
-    const handleClick = () => setCounter(counter + 1);
+function Button(props : any) {
     return (
-        <button onClick={ handleClick }>
-            {counter}
+        <button onClick={ props.onClickFunc }>
+            + 1
         </button>
     );
 }
 
-function App() {
+function Display(props : any) {
     return (
-        <div className="App">            
-            <Button />            
+        <div>{ props.message }</div>
+    )
+}
+
+function App() {
+    // eslint-disable-next-line
+    const [counter, setCounter] = useState(0);
+    const incCounter = () => setCounter(counter + 1);
+
+    return (
+        <div>            
+            <Button onClickFunc={ incCounter }/>
+            <Display message={ counter } />
         </div>
     );
 }
