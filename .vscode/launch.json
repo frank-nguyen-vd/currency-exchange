@@ -1,0 +1,20 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "back-end",
+            "type": "node",
+            "request": "launch",
+            "cwd": "${workspaceFolder}/api/",
+            "runtimeExecutable": "npm",
+            "runtimeArgs": ["run-script", "debug"]
+        },
+        {
+            "name": "front-end",
+            "type": "chrome",
+            "request": "launch",
+            "url": "https://localhost:5000",
+            "webRoot": "${workspaceFolder}"
+        }
+    ]
+}
