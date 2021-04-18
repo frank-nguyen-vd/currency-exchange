@@ -22,8 +22,7 @@ The web-api allows users to retrieve the real-time exchange rates for a set of c
 
 ### Errors
 
-#### Response codes
-
-#### Messages
-
-#### Error types
+| Code | Description                              |
+| ---- | ---------------------------------------- |
+| 503  | Currency exchange service is unavailable |
+| 400  | Bad request with invalid syntax          |
