@@ -16,6 +16,15 @@ const url = "https://api.currencyscoop.com/v1/";
 
 app.get("/rates", cors(corsOptions), (req, res) => {
     const base = req.query.base;
+
+    if (base === undefined) {
+        res.status(400).send({
+            success: true,
+            error: 400,
+            message: "Bad request with invalid syntax"
+        });
+    }
+
     https.get(
         url + "latest" + "?api_key=" + api_key + "&base=" + base,
         (resData) => {
@@ -25,13 +34,22 @@ app.get("/rates", cors(corsOptions), (req, res) => {
             });
 
             resData.on("end", () => {
-                var jsonData = JSON.parse(data).response;
-                res.send(jsonData.rates);
+                const jsonData = JSON.parse(data).response;
+                const rates = jsonData.rates;
+
+                if (rates === undefined) {
+                    res.status(503).send({
+                        success: true,
+                        error: 503,
+                        message: "Currency exchange service is unavailable"
+                    });
+                } else res.send(rates);
             });
         }
     );
 });
 
+// Get list of supported currencies
 app.get("/currencies", cors(corsOptions), (req, res) => {
     https.get(
         url + "currencies" + "?api_key=" + api_key + "&type=fiat",
@@ -42,15 +60,25 @@ app.get("/currencies", cors(corsOptions), (req, res) => {
             });
 
             resData.on("end", () => {
-                var jsonData = JSON.parse(data).response;
-                res.send(jsonData.fiats);
+                const jsonData = JSON.parse(data).response;
+                const rates = jsonData.fiats;
+                if (rates === undefined) {
+                    res.status(503).send({
+                        success: true,
+                        error: 503,
+                        message: "Currency exchange service is unavailable"
+                    });
+                } else res.send(rates);
             });
         }
     );
 });
 
 app.get("/", cors(corsOptions), (req, res) => {
-    res.send("Welcome to Express");
+    res.status(200).send({
+        success: true,
+        message: "Welcome to exchange currency api"
+    });
 });
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
