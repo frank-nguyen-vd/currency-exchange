@@ -15,10 +15,10 @@ The web-api allows users to retrieve the real-time exchange rates for a set of c
 
 #### Base URL
 
-| URL                 | Description                                                                            |
-| ------------------- | -------------------------------------------------------------------------------------- |
-| GET /currencies     | to retrieve list of supported currencies                                               |
-| GET /rates?base=SGD | to get exchange rates of all currencies referenced to a given base currency (e.g. SGD) |
+| Method | Url             | Description                                                                            |
+| ------ | --------------- | -------------------------------------------------------------------------------------- |
+| GET    | /currencies     | to retrieve list of supported currencies                                               |
+| GET    | /rates?base=SGD | to get exchange rates of all currencies referenced to a given base currency (e.g. SGD) |
 
 ### Errors
 
